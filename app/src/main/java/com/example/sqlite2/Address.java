@@ -1,14 +1,17 @@
 package com.example.sqlite2;
 
-public class Place {
+public class Address {
+
     private int id;
     private String name;
 
-    public Place(String name) {
+    public Address(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public Place() {
+    public Address(String name) {
+        this.name = name;
     }
 
     public int getId() {

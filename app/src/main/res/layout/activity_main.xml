@@ -8,19 +8,20 @@
 
     <View
         android:id="@+id/view2"
-        android:layout_width="395dp"
-        android:layout_height="121dp"
+        android:layout_width="360dp"
+        android:layout_height="116dp"
         android:background="@drawable/view"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.034" />
+        app:layout_constraintVertical_bias="0.003" />
 
     <EditText
         android:id="@+id/pt"
-        android:layout_width="295dp"
-        android:layout_height="79dp"
+        android:layout_width="259dp"
+        android:layout_height="51dp"
         android:layout_marginEnd="8dp"
         android:ems="10"
         android:inputType="textPersonName"
@@ -37,21 +38,21 @@
         android:layout_marginStart="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/view2"
         app:layout_constraintEnd_toStartOf="@+id/pt"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/view2"
         app:layout_constraintTop_toTopOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.457"
+        app:layout_constraintVertical_bias="0.28"
         app:srcCompat="@drawable/a" />
 
     <Button
         android:id="@+id/btnAdd"
         android:layout_width="119dp"
         android:layout_height="59dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:backgroundTint="#FF5722"
         android:text="Add"
         app:layout_constraintEnd_toStartOf="@+id/btnCancel"
-        app:layout_constraintHorizontal_bias="0.425"
+        app:layout_constraintHorizontal_bias="0.292"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -67,10 +68,13 @@
 
     <ListView
         android:id="@+id/lv"
-        android:layout_width="405dp"
-        android:layout_height="441dp"
+        android:layout_width="363dp"
+        android:layout_height="332dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

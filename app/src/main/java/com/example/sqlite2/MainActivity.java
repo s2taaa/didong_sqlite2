@@ -2,8 +2,10 @@ package com.example.sqlite2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -13,79 +15,66 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
-    ListView lv;
-    CustomAdapter adt;
-    ArrayList arrayList;
-    ArrayList<Place> list;
+    private ListView listView;
+    private DatabaseHandler dbHandler;
+    private AddressAdapter adapter;
+    private ArrayList arrayList;
+    private ArrayList<Address> addressList;
 
-    dataPlace dataPlace;
-    Button btn_add;
-    ImageButton btn_remove,btn_edt;
-    EditText pt;
-    ArrayList idList;
-    int index;
+
+    private Button btn_add,btn_cancel;
+    private  ImageButton btn_remove,btn_edt;
+    private EditText pt;
+    int index=-1;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
-
-        list = new ArrayList<>();
-        list.add(new Place("long"));
-        list.add(new Place("long1"));
-        list.add(new Place("long2"));
-        list.add(new Place("long3"));
-
-
-
-        lv = findViewById(R.id.lv);
-
-        arrayList = new ArrayList<>();
-        dataPlace = new dataPlace(this,"placedb.sqlite",null,1);
-
-        idList = new ArrayList();
-        getNameList();
-
-
-        btn_edt = findViewById(R.id.btnSua);
-        btn_add =findViewById(R.id.btnAdd);
-        btn_remove =findViewById(R.id.btnXoa);
+        dbHandler = new DatabaseHandler(MainActivity.this);
+        btn_add = findViewById(R.id.btnAdd);
+        btn_cancel = findViewById(R.id.btnCancel);
         pt = findViewById(R.id.pt);
-        lv= findViewById(R.id.lv);
+        listView = findViewById(R.id.lv);
+        addressList = new ArrayList<>();
 
-        btn_add.setOnClickListener(new View.OnClickListener(){
+        adapter = new AddressAdapter(addressList, MainActivity.this, dbHandler);
+        adapter.notifyDataSetChanged();
+        listView.setAdapter(adapter);
 
-
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                index = position;
+//                for (int i = 0; i < parent.getChildCount(); i++) {
+//                    parent.getChildAt(i).setBackgroundColor(Color.WHITE);
+//                }
+//                view.setBackgroundColor(Color.argb(100, 255, 165, 0));
+//            }
+//        });
+        btn_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataPlace.addUser(new Place(pt.getText().toString()));
-                getNameList();
-                adt.notifyDataSetChanged();
+                Address address = new Address(pt.getText().toString().trim());
+                if (!address.getName().trim().isEmpty()) {
+                    dbHandler.addAddress(address);
+                    adapter.notifyDataSetChanged();
+                    pt.setText("");
+                }
             }
         });
 
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pt.setText("");
+                adapter.notifyDataSetChanged();
+            }
+        });
 
-        adt = new CustomAdapter(this, R.layout.listview, list);
-
-        lv.setAdapter(adt);
-
-
-
-
-    }private ArrayList getNameList(){
-        arrayList.clear();
-        idList.clear();
-
-        for (Iterator iterator = dataPlace.getAll().iterator(); iterator.hasNext();){
-            Place place = (Place)iterator.next();
-
-            arrayList.add(place.getName());
-            idList.add(place.getId());
-        }
-
-        return arrayList;
     }
 
 }
